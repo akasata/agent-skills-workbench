@@ -58,7 +58,7 @@ skills-ref validate path/to/skill
 - Python 3.11 以上が必要。README には「デモ目的」と書かれている。
 - PyPI にも `skills-ref` パッケージは存在するが、README には記載がない（**未確認**）。
 
-ユーザーの許可なくインストールしないこと。代替として、このスキルの `scripts/check_skill.py` で同等の frontmatter 制約を検査できる。
+ユーザーの許可なくインストールしないこと。代替として、`skill-validator` Skill を使えば同等の frontmatter 制約を検査できる。
 
 ## 書き方の指針
 

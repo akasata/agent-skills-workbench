@@ -7,6 +7,7 @@ Agent Skills を作成・配布するためのスキル集です。Skill 本体�
 | Skill | 用途 |
 |---|---|
 | [`skill-scaffolder`](skills/skill-scaffolder/SKILL.md) | Agent Skill の新規作成・追加と、Claude Code Plugin / Marketplace、Codex、skills.sh 向け配布構成の生成（Skill 本体は 1 つの正本を共有） |
+| [`skill-validator`](skills/skill-validator/SKILL.md) | Skill と配布構成の検証。Agent Skills 仕様、Claude Code / Codex の manifest・marketplace、skills.sh での探索可否、プラットフォーム間の整合性を、仕様ごとに報告 |
 
 ## インストール
 
@@ -60,7 +61,7 @@ claude --plugin-dir .
 検証:
 
 ```bash
-python skills/skill-scaffolder/scripts/check_skill.py .
+python skills/skill-validator/scripts/validate.py --strict .
 claude plugin validate .claude-plugin/plugin.json --strict
 claude plugin validate .claude-plugin/marketplace.json --strict
 claude plugin validate skills --strict

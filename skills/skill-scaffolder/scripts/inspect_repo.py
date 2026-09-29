@@ -15,12 +15,28 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import re
 import sys
 from collections import defaultdict
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent))
-from _frontmatter import SKIP_DIRS, iter_skill_files, parse_yaml, split_frontmatter  # noqa: E402
+SKIP_DIRS = {".git", "node_modules", ".venv", "venv", "__pycache__", "dist", "build"}
+
+
+def iter_skill_files(root: Path):
+    for dirpath, dirnames, filenames in os.walk(root, followlinks=False):
+        dirnames[:] = [d for d in dirnames if d not in SKIP_DIRS]
+        if "SKILL.md" in filenames:
+            yield Path(dirpath) / "SKILL.md"
+
+
+def frontmatter_name(text: str) -> str:
+    """Best-effort `name` lookup for the inventory (full validation lives in skill-validator)."""
+    m = re.match(r"^﻿?---[ \t]*\r?\n(.*?)\r?\n---[ \t]*(?:\r?\n|$)", text, re.S)
+    if not m:
+        return "? (no frontmatter)"
+    nm = re.search(r"^name:[ \t]*(.+?)[ \t]*$", m.group(1), re.M)
+    return nm.group(1).strip("\"'") if nm else "?"
 
 KNOWN_FILES = [
     (".claude-plugin/plugin.json", "Claude Code plugin manifest"),
@@ -101,15 +117,7 @@ def main() -> int:
         rel = f.relative_to(root)
         raw = f.read_bytes()
         by_hash[hashlib.sha256(raw).hexdigest()].append(rel.as_posix())
-        fm, _ = split_frontmatter(raw.decode("utf-8", errors="replace"))
-        name = "?"
-        if fm is not None:
-            try:
-                name = str(parse_yaml(fm).get("name", "?"))
-            except Exception as e:  # noqa: BLE001
-                name = f"? (frontmatter error: {e})"
-        else:
-            name = "? (no frontmatter)"
+        name = frontmatter_name(raw.decode("utf-8", errors="replace"))
         by_name[name].append(rel.as_posix())
         subdirs = sorted(p.name for p in f.parent.iterdir() if p.is_dir())
         print(f"  - {rel.parent.as_posix()}  name={name}  [{category(rel)}]"

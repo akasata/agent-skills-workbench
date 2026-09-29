@@ -106,17 +106,14 @@ python <skill-dir>/scripts/inspect_repo.py <repo-root>
 
 ### 6. 検証する
 
-```bash
-python <skill-dir>/scripts/check_skill.py <repo-root>
-```
+**`skill-validator` Skill が使える場合は、それに検証を任せる。** `skill-validator` は次の点をまとめて検証する。
 
-このスクリプトは次の点をまとめて検査する。
+- Agent Skills 標準への準拠
+- 各プラットフォームの manifest と marketplace
+- skills.sh での探索可否
+- プラットフォーム間の整合性
 
-- すべての `SKILL.md` の frontmatter が Agent Skills 標準の制約を満たしているか
-- JSON manifest が構文的に正しいか
-- marketplace の相対 `source` が実在するか
-
-これに加えて、対象に応じて以下を実行する。
+`skill-validator` が使えない場合は、少なくとも次の公式ツールを実行する。
 
 - **Claude Code の manifest がある場合:** `claude plugin validate <path> --strict` を、`plugin.json` と `marketplace.json` のそれぞれについて実行する。
 - **Claude Code から Skill 群を検証する場合:** Skill のコンテナディレクトリ（`skills/` など）を指定して `claude plugin validate <dir> --strict` を実行する。
