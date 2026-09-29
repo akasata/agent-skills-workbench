@@ -1,0 +1,12 @@
+{
+  "name": "agent-skills-workbench",
+  "version": "0.1.0",
+  "description": "Skills for creating Agent Skills and their distribution layouts (Claude Code plugins/marketplaces, Codex, skills.sh) from a single canonical SKILL.md.",
+  "author": {
+    "name": "akasata"
+  },
+  "homepage": "https://github.com/akasata/agent-skills-workbench",
+  "repository": "https://github.com/akasata/agent-skills-workbench",
+  "license": "MIT",
+  "keywords": ["agent-skills", "skills", "plugin", "marketplace", "codex", "scaffold"]
+}

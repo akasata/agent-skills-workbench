@@ -1,0 +1,6 @@
+{
+  "name": "agent-skills-workbench",
+  "version": "0.1.0",
+  "description": "Skills for creating Agent Skills and their distribution layouts (Claude Code plugins/marketplaces, Codex, skills.sh) from a single canonical SKILL.md.",
+  "keywords": ["agent-skills", "skills", "plugin", "marketplace", "codex", "scaffold"]
+}

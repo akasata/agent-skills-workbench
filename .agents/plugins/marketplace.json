@@ -1,0 +1,20 @@
+{
+  "name": "agent-skills-workbench",
+  "interface": {
+    "displayName": "Agent Skills Workbench"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills-workbench",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
